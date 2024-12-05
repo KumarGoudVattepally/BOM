@@ -1,102 +1,73 @@
 <!-- <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    <form id="form" >
-        <input type="text" placeholder="Username" id="username">
-        <input type="text" placeholder="Password" id="password">
-        <button type="submit" id="button">submit</button>
+  </head>
+  <body>
+    <form action="">
+      <input type="text" id="username" placeholder="username" />
+      <input type="text" id="password" placeholder="password" />
+      <button type="submit" onclick="fun(event)">Submit</button>
     </form>
-    <h2>Submitted Data:</h2>
-    <p id="output"></p>
+    <a href="./next.html"> Next Page</a>
     <script>
-              form=document.getElementById("form")
-            // inp1=document.getElementById("username")
-            // inp2=document.getElementById("password")
-
-            button=document.getElementById("button")
-            button.addEventListener('click', function (event){
-                event.preventDefault();
-
-                inp1=document.getElementById("username").value
-                inp2=document.getElementById("password").value
-                obj={
-                    user
-                }
-                output.textContent = `Username: ${inp1}, Password: ${inp2}`;
-            })
+      function fun() {
+        event.preventDefault();
+        arr = [];
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        obj = {
+          username: username,
+          password: password,
+        };
+        arr.push(obj);
+        localStorage.setItem("Login Data", JSON.stringify(arr));
+      }
     </script>
-</body>
-</html>
- -->
-
- <!DOCTYPE html>
+  </body>
+</html> -->
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Input and Local Storage</title>
+    <title>Input Form</title>
 </head>
 <body>
-    <h1>Form Input Example</h1>
-    <form id="userForm">
+    <h1>Input Form</h1>
+    <form id="dataForm">
         <label for="name">Name:</label>
-        <input type="text" id="name" required><br><br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" required><br><br>
+        <input type="text" id="name" required>
+        <br>
+        <label for="description">Description:</label>
+        <input type="text" id="description" required>
+        <br>
         <button type="submit">Submit</button>
     </form>
-    
-    <h2>Stored Data:</h2>
-    <ul id="dataList"></ul>
 
     <script>
-        // Get references to DOM elements
-        const form = document.getElementById('userForm');
-        const dataList = document.getElementById('dataList');
+        const form = document.getElementById('dataForm');
 
-        // Retrieve data from local storage or initialize an empty array
-        let storedData = JSON.parse(localStorage.getItem('formData')) || [];
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
 
-        // Function to display stored data on the page
-        const displayData = () => {
-            dataList.innerHTML = ''; // Clear existing list
-            storedData.forEach((item, index) => {
-                const li = document.createElement('li');
-                li.textContent = `${index + 1}. Name: ${item.name}, Password: ${item.password}`;
-                dataList.appendChild(li);
-            });
-        };
-
-        // Add event listener to the form
-        form.addEventListener('submit', (event) => {
-            event.preventDefault(); // Prevent form submission from refreshing the page
-
-            // Get input values
             const name = document.getElementById('name').value;
-            const password = document.getElementById('password').value;
+            const description = document.getElementById('description').value;
 
-            // Create a data object
-            const formData = { name, password };
+            // Get existing items from localStorage or initialize an empty array
+            const items = JSON.parse(localStorage.getItem('items')) || [];
 
-            // Add the object to the storedData array and save to localStorage
-            storedData.push(formData);
-            localStorage.setItem('formData', JSON.stringify(storedData));
+            // Add new item
+            items.push({ name, description });
 
-            // Clear the input fields
-            form.reset();
+            // Save back to localStorage
+            localStorage.setItem('items', JSON.stringify(items));
 
-            // Update the displayed data
-            displayData();
+            // Redirect to display page
+            window.location.href = 'next.html';
         });
-
-        // Display any previously stored data when the page loads
-        displayData();
     </script>
 </body>
 </html>
-

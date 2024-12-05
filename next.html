@@ -1,0 +1,61 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let data=JSON.parse(localStorage.getItem( "Login Data"))
+        // document.write(data.username,data.password)
+          let newdata=data.map((value,index,arr)=>{
+            console.log(value.username);
+            console.log(value.password);
+            
+            
+          })
+    </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Cards</title>
+    <style>
+        .card {
+            border: 1px solid #ccc;
+            padding: 16px;
+            margin: 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Display Cards</h1>
+    <div id="cardsContainer"></div>
+
+    <script>
+        // Retrieve items from localStorage
+        const items = JSON.parse(localStorage.getItem('items')) || [];
+
+        // Get the container
+        const container = document.getElementById('cardsContainer');
+
+        // Render items as cards
+        items.forEach(item => {
+            const card = document.createElement('div');
+            card.classList.add('card');
+            card.innerHTML = `
+                <h3>${item.name}</h3>
+                <p>${item.description}</p>
+            `;
+            container.appendChild(card);
+        });
+    </script>
+</body>
+</html>
